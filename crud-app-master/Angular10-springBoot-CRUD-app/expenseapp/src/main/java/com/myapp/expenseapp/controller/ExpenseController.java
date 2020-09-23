@@ -17,15 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.myapp.expenseapp.model.Expense;
 import com.myapp.expenseapp.service.ExpenseService;
 
-@CrossOrigin("*")
+@CrossOrigin("http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
-
-
 public class ExpenseController {
 	
 	@Autowired
 	ExpenseService expenseService;
+	
 	
 	@GetMapping("/expenses")
 	public ResponseEntity<List<Expense>> get(){
@@ -46,19 +45,17 @@ public class ExpenseController {
 	public User validateLogin() {
 		return new User("User successfully authenticated");
 	} */
-	
 	@GetMapping("/expenses/{id}")
-	public ResponseEntity<Expense> get(@PathVariable("id") long id){
+	public ResponseEntity<Expense> get(@PathVariable("id") Long id){
 		Expense expense = expenseService.findById(id);
 		return new ResponseEntity<Expense>(expense, HttpStatus.OK);
-		
 	}
 	
+	
 	@DeleteMapping("/expenses/{id}")
-	public ResponseEntity<String> delete(@PathVariable("id") long id){
+	public ResponseEntity<String> delete(@PathVariable("id") Long id){
 		expenseService.delete(id);
-		return new ResponseEntity<String>("Expense is deleted successfully", HttpStatus.OK);
-		
+		return new ResponseEntity<String>("Expense is deleted successfully", HttpStatus.OK);	
 	}
 	
 

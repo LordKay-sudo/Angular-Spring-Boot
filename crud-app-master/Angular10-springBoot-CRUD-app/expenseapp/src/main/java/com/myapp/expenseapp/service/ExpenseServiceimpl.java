@@ -11,14 +11,14 @@ import com.myapp.expenseapp.repository.ExpenseRepository;
 
 @Service
 public class ExpenseServiceimpl implements ExpenseService {
-
+	
+	
 	@Autowired
 	ExpenseRepository expenseRepository;
 	
 	@Override
 	public List<Expense> findAll() {
-		return expenseRepository.findAll();
-		
+		return expenseRepository.findAll();	
 	}
 
 	@Override
@@ -28,7 +28,7 @@ public class ExpenseServiceimpl implements ExpenseService {
 	}
 
 	@Override
-	public Expense findById(long id) {
+	public Expense findById(Long id) {
 		if(expenseRepository.findById(id).isPresent()) {
 			return expenseRepository.findById(id).get();
 		}
@@ -36,7 +36,7 @@ public class ExpenseServiceimpl implements ExpenseService {
 	}
 
 	@Override
-	public void delete(long id) {
+	public void delete(Long id) {
 		Expense expense = findById(id);
 		expenseRepository.delete(expense);
 	}

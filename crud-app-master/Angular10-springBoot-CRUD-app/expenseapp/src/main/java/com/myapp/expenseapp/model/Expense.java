@@ -20,7 +20,7 @@ import lombok.Setter;
 public class Expense {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	private String expense;
@@ -28,6 +28,8 @@ public class Expense {
 	private String description;
 	
 	private BigDecimal amount;
+	
+	
 
 	public String getDescription() {
 		return description;
@@ -44,6 +46,8 @@ public class Expense {
 	public void setExpense(String expense) {
 		this.expense = expense;
 	}
+	
+	
 
 	public BigDecimal getAmount() {
 		return amount;
@@ -52,6 +56,5 @@ public class Expense {
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
 	}
-	
 	
 }

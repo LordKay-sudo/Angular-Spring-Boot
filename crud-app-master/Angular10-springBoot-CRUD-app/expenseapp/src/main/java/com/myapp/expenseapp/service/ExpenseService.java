@@ -7,10 +7,12 @@ import com.myapp.expenseapp.model.Expense;
 public interface ExpenseService {
 	
 	List<Expense> findAll();
-
-	Expense findById(long id);
 	
-	void delete(long id);
-
 	Expense save(Expense expense);
+
+	Expense findById(Long id);
+	
+	void delete(Long id);
+
+	
 }
