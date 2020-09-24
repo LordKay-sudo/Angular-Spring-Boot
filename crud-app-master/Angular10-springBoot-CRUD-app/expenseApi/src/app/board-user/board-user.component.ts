@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Expense} from 'src/app/models/expense';
-import {ExpenseService} from 'src/app/services/expense.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-board-user',
@@ -8,50 +7,18 @@ import {ExpenseService} from 'src/app/services/expense.service';
   styleUrls: ['./board-user.component.css']
 })
 export class BoardUserComponent implements OnInit {
+  content = '';
 
-  expenses: Expense[] = [];
+  constructor(private userService: UserService) { }
 
-
-  filters = {
-    keyword: '',
-    sortBy: 'Name',
-
-  }
-
-  constructor(private _expenseService: ExpenseService) { }
-
-  ngOnInit(): void {
-    this.listExpenses();
-  }
-
-  deleteExpense(id: number){
-    this._expenseService.deleteExpense(id).subscribe(
+  ngOnInit() {
+    this.userService.getUserBoard().subscribe(
       data => {
-        console.log('deleted response', data);
-        this.listExpenses();
+        this.content = data;
+      },
+      err => {
+        this.content = JSON.parse(err.error).message;
       }
-    )
+    );
   }
-
-  listExpenses(){
-    this._expenseService.getExpenses().subscribe(
-      data => this.expenses = this.filterExpenses(data)
-    )
-  }
-
-  filterExpenses(expenses: Expense[]){
-    return expenses.filter((e) => {
-      return e.expense.toLowerCase().includes(this.filters.keyword.toLowerCase());
-    }).sort((a,b) => {
-      if (this.filters.sortBy === 'Name'){
-        return a.expense.toLowerCase() < b.expense.toLowerCase() ? -1: 1;
-      }
-      else if(this.filters.sortBy === 'Amount'){
-        return a.amount > b.amount ? -1: 1;
-      }
-    }
-    )
-  }
-
-
 }

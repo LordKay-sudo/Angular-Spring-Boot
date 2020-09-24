@@ -4,14 +4,14 @@ import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { ListExpensesComponent } from './compoments/list-expenses/list-expenses.component';
+import { ListExpensesComponent } from './components/list-expenses/list-expenses.component';
 import { AddExpenseComponent } from './components/add-expense/add-expense.component';
 import {FormsModule} from '@angular/forms';
-import { HeaderComponent } from './header/header.component';
+
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { AuthGuardService } from './service/auth-guard.service';
-import { FooterComponent } from './footer/footer.component';
+
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -20,14 +20,18 @@ import { BoardModeratorComponent } from './board-moderator/board-moderator.compo
 import { BoardUserComponent } from './board-user/board-user.component';
 
 import { authInterceptorProviders } from '../helpers/auth.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 const routers: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'expenses', component: BoardUserComponent,canActivate:[AuthGuardService] },
-  { path: 'addexpense', component: AddExpenseComponent,canActivate:[AuthGuardService]},
-  { path: 'editexpense/:id', component: AddExpenseComponent,canActivate:[AuthGuardService], pathMatch: 'full'},
+  { path: 'expenses', component: ListExpensesComponent },
+  { path: 'user', component: BoardUserComponent },
+  { path: 'addexpense', component: AddExpenseComponent},
+  { path: 'editexpense/:id', component: AddExpenseComponent},
   { path: 'login', component: LoginComponent},
   { path: 'logout', component: LogoutComponent},
+  { path: 'register', component: RegisterComponent},
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
@@ -38,10 +42,8 @@ const routers: Routes = [
     AppComponent,
     ListExpensesComponent,
     AddExpenseComponent,
-    HeaderComponent,
     LoginComponent,
     LogoutComponent,
-    FooterComponent,
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
@@ -54,6 +56,7 @@ const routers: Routes = [
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot(routers,  {enableTracing: true}),
+    NgbModule,
   ],
   exports: [RouterModule],
   providers: [authInterceptorProviders],
